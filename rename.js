@@ -280,7 +280,7 @@ function operator(pro) {
       e.name = keyover.join(FGF);
     } else {
       if (nm) {
-        e.name = FNAME + FGF + e.name;
+        e.name = (FNAME + FGF + e.name).trimStart();
       } else {
         e.name = null;
       }
