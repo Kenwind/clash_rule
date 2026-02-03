@@ -1,0 +1,109 @@
+#!name=AI 分流合集 (Enhanced for Agents)
+#!desc=支持主流 AI 模型及 Alma, Claude Code, OpenClaw, OpenCode 等 Agent 工具
+#!author=lodepuly & Gemini
+#!date=2026-02-03 12:00:00
+
+#############################################
+
+# --- [OpenAI / ChatGPT / Sora] ---
+AND, ((DOMAIN-KEYWORD, chatgpt-async-webps-prod-), (DOMAIN-SUFFIX, webpubsub.azure.com))
+AND, ((DOMAIN-KEYWORD, openaicom-api-), (DOMAIN-SUFFIX, azurefd.net))
+DOMAIN, chatgpt.livekit.cloud
+DOMAIN, host.livekit.cloud
+DOMAIN-SUFFIX, turn.livekit.cloud
+DOMAIN, openai.com.cdn.cloudflare.net
+DOMAIN, openaiapi-site.azureedge.net
+DOMAIN, openaicomproductionae4b.blob.core.windows.net
+DOMAIN, production-openaicom-storage.azureedge.net
+DOMAIN-SUFFIX, chat.com
+DOMAIN-SUFFIX, chatgpt.com
+DOMAIN-SUFFIX, oaistatic.com
+DOMAIN-SUFFIX, oaiusercontent.com
+DOMAIN-SUFFIX, openai.com
+DOMAIN-SUFFIX, sora.com
+# OpenAI 辅助/遥测
+DOMAIN-SUFFIX, featuregates.org
+DOMAIN-SUFFIX, statsigapi.net
+
+# --- [Anthropic / Claude / Claude Code] ---
+DOMAIN-SUFFIX, anthropic.com
+DOMAIN-SUFFIX, claude.ai
+DOMAIN-SUFFIX, claudeusercontent.com
+# Claude Code CLI 必备
+DOMAIN-SUFFIX, statsig.anthropic.com
+IP-CIDR, 160.79.104.0/23, no-resolve
+IP-CIDR6, 2607:6bc0::/48, no-resolve
+
+# --- [Google Gemini / AI Studio] ---
+DOMAIN, ai.google.dev
+DOMAIN, aida.googleapis.com
+DOMAIN, aistudio.google.com
+DOMAIN, alkalicore-pa.clients6.google.com
+DOMAIN, alkalimakersuite-pa.clients6.google.com
+DOMAIN, bard.google.com
+DOMAIN, deepmind.com
+DOMAIN, deepmind.google
+DOMAIN, geller-pa.googleapis.com
+DOMAIN, gemini.google.com
+DOMAIN, generativeai.google
+DOMAIN, generativelanguage.googleapis.com
+DOMAIN, makersuite.google.com
+DOMAIN, proactivebackend-pa.googleapis.com
+# Gemini 追加
+DOMAIN-SUFFIX, alkalimessages-pa.googleapis.com
+
+# --- [Agent Tools: Alma, OpenCode, OpenClaw] ---
+# Alma Research Agent
+DOMAIN-SUFFIX, alma.ai
+# OpenCode & Synthetic (Dax Raad)
+DOMAIN-SUFFIX, opencode.ai
+DOMAIN-SUFFIX, opncd.ai
+DOMAIN-SUFFIX, models.dev
+DOMAIN-SUFFIX, synthetic.new
+DOMAIN-SUFFIX, z.ai
+# OpenClaw
+DOMAIN-SUFFIX, openclaw.ai
+DOMAIN-SUFFIX, clawhub.com
+DOMAIN-SUFFIX, clawdhub.com
+
+# --- [Agent Infrastructure (联网搜索与网页解析)] ---
+# 当 Agent 需要联网获取实时信息时，通常会调用这些接口
+DOMAIN-SUFFIX, tavily.com
+DOMAIN-SUFFIX, exa.ai
+DOMAIN-SUFFIX, jina.ai
+DOMAIN-SUFFIX, serper.dev
+
+# --- [Apple Intelligence] ---
+DOMAIN-SUFFIX,apple-relay.apple.com
+DOMAIN-SUFFIX,apple-relay.fastly-edge.com
+DOMAIN-SUFFIX,apple-relay.cloudflare.com
+DOMAIN-SUFFIX,gateway.icloud.com
+DOMAIN-SUFFIX,guzzoni.apple.com
+DOMAIN-SUFFIX,cp4.cloudflare.com
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
+DOMAIN-SUFFIX,apps.mzstatic.com
+
+# --- [GitHub Copilot] ---
+DOMAIN, api.githubcopilot.com
+DOMAIN, copilot-proxy.githubusercontent.com
+DOMAIN, copilot.microsoft.com
+DOMAIN, sydney.bing.com
+DOMAIN-SUFFIX, githubcopilot.com
+
+# --- [Other AI Services] ---
+# Trae AI
+DOMAIN, trae-api-sg.mchost.guru
+DOMAIN-SUFFIX, trae.ai
+# Perplexity
+DOMAIN-SUFFIX, pplx.ai
+DOMAIN-SUFFIX, perplexity.ai
+DOMAIN-SUFFIX, perplexity.com
+# Grok / xAI
+DOMAIN, api.x.ai
+DOMAIN-SUFFIX, x.ai
+DOMAIN-SUFFIX, grok.com
+# Meta / Mistral / JetBrains
+DOMAIN-SUFFIX, meta.ai
+DOMAIN-SUFFIX, mistral.ai
+DOMAIN-SUFFIX, grazie.ai
+DOMAIN-SUFFIX, jetbrains.ai
