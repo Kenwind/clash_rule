@@ -26,7 +26,7 @@ DOMAIN-SUFFIX, featuregates.org
 DOMAIN-SUFFIX, statsigapi.net
 
 # --- [Anthropic / Claude / Claude Code] ---
-DOMAIN_KEYWORD, claude
+DOMAIN-KEYWORD, claude
 DOMAIN-SUFFIX, anthropic.com
 DOMAIN-SUFFIX, claude.ai
 DOMAIN-SUFFIX, claudeusercontent.com
