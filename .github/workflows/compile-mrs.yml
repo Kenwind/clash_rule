@@ -1,0 +1,30 @@
+name: Compile MRS rule sets
+
+on:
+  push:
+    paths:
+      - 'AI.list'
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download mihomo
+        run: |
+          MIHOMO_VERSION=$(curl -s https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | jq -r '.tag_name')
+          curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" | gunzip > mihomo
+          chmod +x mihomo
+
+      - name: Compile AI.list to MRS
+        run: ./mihomo convert-ruleset classical text AI.list AI.mrs
+
+      - name: Commit MRS files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add AI.mrs
+          git diff --cached --quiet || git commit -m "auto: compile AI.mrs from AI.list"
+          git push
