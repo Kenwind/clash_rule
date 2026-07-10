@@ -18,16 +18,31 @@ jobs:
           curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" | gunzip > mihomo
           chmod +x mihomo
 
-      - name: Compile AI.list to MRS
+      - name: Convert AI.list to domain format and compile MRS
         run: |
-          # Keep only rule types supported by classical mrs: DOMAIN, DOMAIN-SUFFIX, IP-CIDR, IP-CIDR6
-          grep -v '^#' AI.list | grep -v '^$' \
-            | grep -E '^(DOMAIN,|DOMAIN-SUFFIX,|IP-CIDR,|IP-CIDR6,)' \
-            | sed 's/,no-resolve$//' \
-            > AI_clean.list
-          echo "Compiling $(wc -l < AI_clean.list) rules..."
-          ./mihomo convert-ruleset classical text AI_clean.list AI.mrs
-          rm AI_clean.list
+          # Extract domain rules from classical format into domain behavior format:
+          #   DOMAIN,x.com        -> x.com
+          #   DOMAIN-SUFFIX,x.com -> +.x.com
+          # Skip non-domain rules (IP-CIDR, DOMAIN-KEYWORD, IP-ASN etc.)
+          python3 -c "
+          import sys
+          for line in open('AI.list'):
+              line = line.strip()
+              if not line or line.startswith('#'):
+                  continue
+              parts = line.split(',', 1)
+              if len(parts) < 2:
+                  continue
+              rtype, domain = parts[0].strip(), parts[1].strip().rstrip(',no-resolve')
+              if rtype == 'DOMAIN':
+                  print(domain)
+              elif rtype == 'DOMAIN-SUFFIX':
+                  print('+.' + domain)
+          " > AI_domain.list
+          echo "Converting $(wc -l < AI_domain.list) domain rules to mrs..."
+          ./mihomo convert-ruleset domain text AI_domain.list AI.mrs
+          rm AI_domain.list
+          echo "AI.mrs compiled successfully ($(wc -c < AI.mrs) bytes)"
 
       - name: Commit MRS files
         run: |
