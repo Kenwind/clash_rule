@@ -20,8 +20,12 @@ jobs:
 
       - name: Compile AI.list to MRS
         run: |
-          # Strip comments, empty lines, IP-ASN (unsupported in mrs), and ,no-resolve suffix
-          grep -v '^#' AI.list | grep -v '^$' | grep -v '^IP-ASN' | sed 's/,no-resolve$//' > AI_clean.list
+          # Keep only rule types supported by classical mrs: DOMAIN, DOMAIN-SUFFIX, IP-CIDR, IP-CIDR6
+          grep -v '^#' AI.list | grep -v '^$' \
+            | grep -E '^(DOMAIN,|DOMAIN-SUFFIX,|IP-CIDR,|IP-CIDR6,)' \
+            | sed 's/,no-resolve$//' \
+            > AI_clean.list
+          echo "Compiling $(wc -l < AI_clean.list) rules..."
           ./mihomo convert-ruleset classical text AI_clean.list AI.mrs
           rm AI_clean.list
 
