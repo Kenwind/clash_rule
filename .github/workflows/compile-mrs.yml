@@ -18,9 +18,10 @@ jobs:
           curl -sL "https://github.com/MetaCubeX/mihomo/releases/download/${MIHOMO_VERSION}/mihomo-linux-amd64-${MIHOMO_VERSION}.gz" | gunzip > mihomo
           chmod +x mihomo
 
-      - name: Strip comments and compile AI.list to MRS
+      - name: Compile AI.list to MRS
         run: |
-          grep -v '^#' AI.list | grep -v '^$' > AI_clean.list
+          # Strip comments, empty lines, IP-ASN (unsupported in mrs), and ,no-resolve suffix
+          grep -v '^#' AI.list | grep -v '^$' | grep -v '^IP-ASN' | sed 's/,no-resolve$//' > AI_clean.list
           ./mihomo convert-ruleset classical text AI_clean.list AI.mrs
           rm AI_clean.list
 
