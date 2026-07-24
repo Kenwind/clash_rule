@@ -127,6 +127,8 @@ DOMAIN-SUFFIX, perplexity.com
 DOMAIN, api.x.ai
 DOMAIN-SUFFIX, x.ai
 DOMAIN-SUFFIX, grok.com
+# grokusercontent/grokipedia 等子域走同一策略；keyword 兜底避免漏网
+DOMAIN-KEYWORD, grok
 # Meta AI
 DOMAIN-SUFFIX, meta.ai
 # Mistral
